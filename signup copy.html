@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="auth.css" />
+</head>
+
+<body>
+    <div class="main-container">
+        <div class='signup-container'>
+            <span class='login'>Signup</span>
+            <input type='text' placeholder="Name" class="name" />
+            <input type='text' placeholder="Email" class="email" />
+            <input type='password' placeholder="Password" class="password" />
+            <button onclick="submit_the_form()">Signup</button>
+            <hr />
+            <span class='new-user'>already have a account? <a href='http://127.0.0.1:5500/E-CommerceWebsite/auth.html'>Login</a></span>
+        </div>
+    </div>
+    <script>
+        const url = 'https://ecommerce-auth-api.vercel.app/add-data';
+        const submit_the_form = async (e) => {
+            const name = document.querySelector(".name").value;
+            const email = document.querySelector('.email').value;
+            const password = document.querySelector('.password').value;
+            console.log(name, email, password);
+            if (name == "" || email == "" || password == "") {
+                return alert("please fill proper data")
+            }
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password,name })
+
+            });
+            if (!response.ok) {
+                return console.log('Network response was not ok');
+            }
+
+            const data = await response.json();
+            alert("signup successfully ");
+            console.log('Data received:', data);
+
+        
+}
+    </script>
+</body>
+
+</html>
